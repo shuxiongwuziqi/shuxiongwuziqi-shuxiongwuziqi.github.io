@@ -460,65 +460,100 @@
                                     Below is my capabilities level.
                                 </p>
 
-                                <p class="content"><strong>Taro</strong></p>
-
-                                <div class="progress">
-                                    <div
-                                        class="progress-bar bg-success"
-                                        role="progressbar"
-                                        style="width: 0%"
-                                        aria-valuenow="85"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    >
-                                        85%
-                                    </div>
-                                </div>
-
-                                <p class="content"><strong>React</strong></p>
-
-                                <div class="progress">
-                                    <div
-                                        class="progress-bar bg-success"
-                                        role="progressbar"
-                                        style="width: 0%"
-                                        aria-valuenow="80"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    >
-                                        80%
-                                    </div>
-                                </div>
-
-                                <p class="content"><strong>Vue</strong></p>
-
-                                <div class="progress">
-                                    <div
-                                        class="progress-bar bg-info"
-                                        role="progressbar"
-                                        style="width: 0%"
-                                        aria-valuenow="50"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    >
-                                        50%
-                                    </div>
-                                </div>
-
-                                <p class="content"><strong>Express</strong></p>
-
-                                <div class="progress">
-                                    <div
-                                        class="progress-bar bg-danger"
-                                        role="progressbar"
-                                        style="width: 0%"
-                                        aria-valuenow="40"
-                                        aria-valuemin="0"
-                                        aria-valuemax="100"
-                                    >
-                                        40%
-                                    </div>
-                                </div>
+                                <table style="width: 100%">
+                                    <tr>
+                                        <td>
+                                            <p class="content">
+                                                <strong>Taro</strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="progress">
+                                                <div
+                                                    class="progress-bar bg-success"
+                                                    role="progressbar"
+                                                    style="width: 0%"
+                                                    aria-valuenow="85"
+                                                    aria-valuemin="0"
+                                                    aria-valuemax="100"
+                                                >
+                                                    85%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="content">
+                                                <strong>React</strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="progress">
+                                                <div
+                                                    class="progress-bar bg-success"
+                                                    role="progressbar"
+                                                    style="width: 0%"
+                                                    aria-valuenow="80"
+                                                    aria-valuemin="0"
+                                                    aria-valuemax="100"
+                                                >
+                                                    80%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="content">
+                                                <strong>Vue</strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="progress">
+                                                <div
+                                                    class="progress-bar bg-info"
+                                                    role="progressbar"
+                                                    style="width: 0%"
+                                                    aria-valuenow="50"
+                                                    aria-valuemin="0"
+                                                    aria-valuemax="100"
+                                                >
+                                                    50%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <p class="content">
+                                                <strong>Express</strong>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="progress">
+                                                <div
+                                                    class="progress-bar bg-danger"
+                                                    role="progressbar"
+                                                    style="width: 0%"
+                                                    aria-valuenow="40"
+                                                    aria-valuemin="0"
+                                                    aria-valuemax="100"
+                                                >
+                                                    40%
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -546,17 +581,21 @@
                     document.getElementsByClassName("progress");
                 const capabilitiesElement =
                     document.getElementById("capabilities");
+                const tableElement =
+                    capabilitiesElement.getElementsByTagName("table")[0];
                 const listeners = [];
 
                 for (let index = 0; index < progressElements.length; index++) {
                     const element = progressElements[index].children[0];
+                    const offsetTop =
+                        element.parentElement.parentElement.parentElement
+                            .offsetTop +
+                        capabilitiesElement.offsetTop +
+                        tableElement.offsetTop +
+                        element.clientHeight / 2;
+
                     const listener = ({ scrollTop }) => {
-                        if (
-                            element.offsetTop +
-                                capabilitiesElement.offsetTop +
-                                element.clientHeight / 2 <
-                            appElement.clientHeight + scrollTop
-                        ) {
+                        if (offsetTop < appElement.clientHeight + scrollTop) {
                             element.style.width = `${element.getAttribute(
                                 "aria-valuenow"
                             )}%`;
